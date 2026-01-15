@@ -7,7 +7,7 @@ namespace ManagedCode.Storage.Server.Controllers;
 /// <summary>
 /// Default storage controller exposing all storage endpoints using the shared <see cref="IStorage"/> instance.
 /// </summary>
-[Route("api/storage")]
+// [Route("api/storage")]
 public class StorageController : StorageControllerBase<IStorage>
 {
     /// <summary>

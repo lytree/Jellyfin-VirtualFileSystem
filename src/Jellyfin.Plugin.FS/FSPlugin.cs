@@ -10,7 +10,7 @@ namespace Jellyfin.Plugin.FS;
 /// </summary>
 public class FSPlugin : BasePlugin<PluginConfiguration>, IHasPluginConfiguration, IHasWebPages
 {
-    public override Guid Id => Guid.Parse("235c7b78-2fa6-4a7a-8ffb-7929d5ee3e56");
+    public override Guid Id => Guid.Parse("48e252dc-232f-87b3-9169-455037912e46");
     public override string Name => "FSSystem";
 
     public static FSPlugin Instance { get; private set; } = null!;

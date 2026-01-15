@@ -2,7 +2,6 @@
 using System.Runtime.Loader;
 using System.Text.Json.Nodes;
 using Jellyfin.Plugin.FS.Helpers;
-using Jellyfin.Plugin.FS.JellyfinVersionSpecific;
 using MediaBrowser.Controller;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Playlists;
@@ -79,6 +78,13 @@ namespace Jellyfin.Plugin.FS.Services
             return Task.CompletedTask;
         }
 
-        public IEnumerable<TaskTriggerInfo> GetDefaultTriggers() => StartupServiceHelper.GetDefaultTriggers();
-    }
+        public IEnumerable<TaskTriggerInfo> GetDefaultTriggers()
+        {
+            yield return new TaskTriggerInfo()
+            {
+                Type = TaskTriggerInfoType.StartupTrigger
+            };
+        }
+    };
 }
+

@@ -1,16 +1,19 @@
-﻿using MediaBrowser.Model.Plugins;
+﻿using ManagedCode.Storage.Core;
+using ManagedCode.Storage.VirtualFileSystem.Options;
+using MediaBrowser.Model.Plugins;
 
 namespace Jellyfin.Plugin.FS.Configuration
 {
     public class PluginConfiguration : BasePluginConfiguration
     {
-        public TabConfig[] Tabs { get; set; } = [];
+        public FileSystemLink[] FileSystems { get; set; } = [];
     }
 
-    public class TabConfig
+    public class FileSystemLink
     {
-        public string ContentHtml { get; set; } = string.Empty;
+        public string LinkPath { get; set; } = string.Empty;
+        public string BaseFolder { get; set; } = string.Empty;
+        public Dictionary<string, string> Options { get; set; } = new();
 
-        public string Title { get; set; } = string.Empty;
     }
 }
