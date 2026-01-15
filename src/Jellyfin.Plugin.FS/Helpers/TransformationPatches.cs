@@ -27,14 +27,14 @@ namespace Jellyfin.Plugin.FS.Helpers
 
                 string tabTemplate = reader.ReadToEnd();
                 string finalReplacement = "";
-                for (int i = 0; i < FSPlugin.Instance.Configuration.Tabs.Length; ++i)
+                for (int i = 0; i < FSPlugin.Instance.Configuration.FileSystems.Length; ++i)
                 {
-                    TabConfig tabConfig = FSPlugin.Instance.Configuration.Tabs[i];
+                    FileSystemLink tabConfig = FSPlugin.Instance.Configuration.FileSystems[i];
 
                     finalReplacement += tabTemplate
                         .Replace("{{tab_id}}", $"customTab_{i}")
                         .Replace("{{tab_index}}", $"{i + 2}")
-                        .Replace("{{tab_content}}", tabConfig.ContentHtml);
+                        .Replace("{{tab_content}}", "");
                 }
 
                 finalReplacement = finalReplacement

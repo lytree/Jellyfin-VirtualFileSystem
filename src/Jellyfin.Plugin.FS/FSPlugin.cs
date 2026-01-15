@@ -27,6 +27,7 @@ public class FSPlugin : BasePlugin<PluginConfiguration>, IHasPluginConfiguration
         yield return new PluginPageInfo
         {
             Name = Name,
+            MenuSection = "server",
             EmbeddedResourcePath = $"{prefix}.Configuration.config.html"
         };
     }

@@ -43,7 +43,7 @@
             if (typeof VFSConfig == 'undefined') {
 
                 const VFSConfig = {
-                    pluginId: "235c7b78-2fa6-4a7a-8ffb-7929d5ee3e56",
+                    pluginId: "48e252dc-232f-87b3-9169-455037912e46",
                     mappings: [],
 
                     // 初始化：绑定页面事件
@@ -63,11 +63,17 @@
                     // 从服务器加载配置
                     load: () => {
                         Dashboard.showLoadingMsg();
-                        ApiClient.getPluginConfiguration(VFSConfig.pluginId).then((config) => {
+                        window.ApiClient.getPluginConfiguration(VFSConfig.pluginId).then((config) => {
+
                             VFSConfig.mappings = config.PathMappings || [];
                             VFSConfig.render();
                             Dashboard.hideLoadingMsg();
-                        });
+                        }).catch(function (error) {
+                            console.error(error);
+                        })
+                            .finally(function () {
+                                Dashboard.hideLoadingMsg();
+                            });;
                     },
 
                     // 渲染 HTML 列表
@@ -115,13 +121,23 @@
                     // 保存到服务器
                     save: () => {
                         Dashboard.showLoadingMsg();
-                        ApiClient.getPluginConfiguration(VFSConfig.pluginId).then((config) => {
+                        window.ApiClient.getPluginConfiguration(VFSConfig.pluginId).then((config) => {
                             config.PathMappings = VFSConfig.mappings;
 
-                            ApiClient.updatePluginConfiguration(VFSConfig.pluginId, config).then((result) => {
+                            window.ApiClient.updatePluginConfiguration(VFSConfig.pluginId, config).then((result) => {
                                 Dashboard.processPluginConfigurationUpdateResult(result);
-                            });
-                        });
+                            }).catch(function (error) {
+                                console.error(error);
+                            })
+                                .finally(function () {
+                                    Dashboard.hideLoadingMsg();
+                                });;
+                        }).catch(function (error) {
+                            console.error(error);
+                        })
+                            .finally(function () {
+                                Dashboard.hideLoadingMsg();
+                            });;
                     }
                 }
 
