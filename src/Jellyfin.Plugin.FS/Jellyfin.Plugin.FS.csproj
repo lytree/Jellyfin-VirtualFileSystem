@@ -19,16 +19,17 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.12" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.12" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.12" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ManagedCode.MimeTypes" Version="10.0.1" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Configuration\config.html" />
-    <None Remove="Inject\addCustomTabs.js" />
-    <EmbeddedResource Include="Inject\addCustomTabs.js" />
-    <None Remove="Inject\tabTemplate.html" />
-    <EmbeddedResource Include="Inject\tabTemplate.html" />
+    <None Remove="Inject\VFS.js" />
+    <EmbeddedResource Include="Inject\VFS.js" />
+    <None Remove="Inject\VFS.html" />
+    <EmbeddedResource Include="Inject\VFS.html" />
 
     <None Include="..\..\README.md" />
     <None Include="..\logo.png" CopyToOutputDirectory="Always" />

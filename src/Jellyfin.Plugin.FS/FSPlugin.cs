@@ -26,8 +26,11 @@ public class FSPlugin : BasePlugin<PluginConfiguration>, IHasPluginConfiguration
 
         yield return new PluginPageInfo
         {
-            Name = Name,
+            Name = "VFS",
+            DisplayName = "VFS",
+            EnableInMainMenu = true,
             MenuSection = "server",
+            MenuIcon = "photo",
             EmbeddedResourcePath = $"{prefix}.Configuration.config.html"
         };
     }

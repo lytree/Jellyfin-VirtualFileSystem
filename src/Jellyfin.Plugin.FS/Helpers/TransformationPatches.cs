@@ -9,7 +9,7 @@ namespace Jellyfin.Plugin.FS.Helpers
     {
         public static string IndexHtml(PatchRequestPayload payload)
         {
-            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{typeof(FSPlugin).Namespace}.Inject.addCustomTabs.js")!;
+            Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{typeof(FSPlugin).Namespace}.Inject.VFS.js")!;
             using TextReader reader = new StreamReader(stream);
 
             string regex = Regex.Replace(payload.Contents!, "(</body>)", $"<script defer>{reader.ReadToEnd()}</script>$1");
@@ -22,27 +22,16 @@ namespace Jellyfin.Plugin.FS.Helpers
             string buffer = payload.Contents!;
             {
                 Stream stream = Assembly.GetExecutingAssembly()
-                    .GetManifestResourceStream($"{typeof(FSPlugin).Namespace}.Inject.tabTemplate.html")!;
+                    .GetManifestResourceStream($"{typeof(FSPlugin).Namespace}.Inject.VFS.html")!;
                 using TextReader reader = new StreamReader(stream);
 
                 string tabTemplate = reader.ReadToEnd();
-                string finalReplacement = "";
-                for (int i = 0; i < FSPlugin.Instance.Configuration.FileSystems.Length; ++i)
-                {
-                    FileSystemLink tabConfig = FSPlugin.Instance.Configuration.FileSystems[i];
-
-                    finalReplacement += tabTemplate
-                        .Replace("{{tab_id}}", $"customTab_{i}")
-                        .Replace("{{tab_index}}", $"{i + 2}")
-                        .Replace("{{tab_content}}", "");
-                }
-
+                string finalReplacement = tabTemplate;
                 finalReplacement = finalReplacement
                     .Replace('\r', ' ')
                     .Replace('\n', ' ')
                     .Replace("  ", " ")
                     .Replace("'undefined'", "\\'undefined\\'");
-
                 buffer = Regex.Replace(buffer, "(id=\"favoritesTab\" data-index=\"1\"> <div class=\"sections\"></div> </div>)", $"$1{finalReplacement}");
             }
 

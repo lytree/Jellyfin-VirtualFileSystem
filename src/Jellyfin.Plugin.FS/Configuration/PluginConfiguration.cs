@@ -6,10 +6,10 @@ namespace Jellyfin.Plugin.FS.Configuration
 {
     public class PluginConfiguration : BasePluginConfiguration
     {
-        public FileSystemLink[] FileSystems { get; set; } = [];
+        public PathMappings[] FileSystems { get; set; } = [];
     }
 
-    public class FileSystemLink
+    public class PathMappings
     {
         public string LinkPath { get; set; } = string.Empty;
         public string BaseFolder { get; set; } = string.Empty;

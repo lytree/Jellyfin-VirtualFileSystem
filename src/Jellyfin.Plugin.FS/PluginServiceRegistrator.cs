@@ -1,4 +1,5 @@
 
+using ManagedCode.Storage.FileSystem.Extensions;
 using ManagedCode.Storage.Server.Extensions.DependencyInjection;
 using ManagedCode.Storage.VirtualFileSystem.Extensions;
 using MediaBrowser.Controller;
@@ -13,6 +14,10 @@ public class PluginServiceRegistrator : IPluginServiceRegistrator
     {
         serviceCollection.AddStorageServer();
         serviceCollection.AddStorageSignalR(); // optional
+        serviceCollection.AddFileSystemStorageAsDefault(options =>
+        {
+            options.BaseFolder = Path.Combine("./", "storage");
+        });
         serviceCollection.AddVirtualFileSystem(options =>
         {
             options.DefaultContainer = "vfs";

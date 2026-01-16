@@ -9,7 +9,7 @@
     <div data-role="page" id="VFSConfigurationPage" class="page type-interior pluginConfigurationPage fullWidthContent">
         <div data-role="content">
             <div class="content-primary">
-                <form id="myPluginConfigForm">
+                <form id="vfsConfigForm">
                     <div class="sectionTitle">路径映射配置</div>
 
                     <div class="verticalSection">
@@ -21,14 +21,14 @@
                             <label class="inputLabel" for="LinkPath">链接路径 (Link Path)</label>
                             <input is="emby-input" type="text" id="LinkPath" label="链接路径:" />
                         </div>
-                        <button id="btnAddPath" is="emby-button" type="button" class="raised button-cancel block">
+                        <button id="btnAddMapping" is="emby-button" type="button" class="raised button-cancel block">
                             <span>添加至列表</span>
                         </button>
                     </div>
 
                     <div class="verticalSection">
                         <div class="sectionTitle">已添加的内容</div>
-                        <div id="pathList" class="paperList"></div>
+                        <div id="vfsMappingList" class="paperList"></div>
                     </div>
 
                     <div style="margin-top: 2em;">
@@ -65,7 +65,7 @@
                         Dashboard.showLoadingMsg();
                         window.ApiClient.getPluginConfiguration(VFSConfig.pluginId).then((config) => {
 
-                            VFSConfig.mappings = config.PathMappings || [];
+                            VFSConfig.mappings = config.FileSystems || [];
                             VFSConfig.render();
                             Dashboard.hideLoadingMsg();
                         }).catch(function (error) {
@@ -122,7 +122,7 @@
                     save: () => {
                         Dashboard.showLoadingMsg();
                         window.ApiClient.getPluginConfiguration(VFSConfig.pluginId).then((config) => {
-                            config.PathMappings = VFSConfig.mappings;
+                            config.FileSystems = VFSConfig.mappings;
 
                             window.ApiClient.updatePluginConfiguration(VFSConfig.pluginId, config).then((result) => {
                                 Dashboard.processPluginConfigurationUpdateResult(result);
@@ -143,6 +143,7 @@
 
                 // Jellyfin 页面进入时触发
                 document.querySelector('#VFSConfigurationPage').addEventListener('pageshow', function () {
+
                     VFSConfig.init(this);
                 });
             }

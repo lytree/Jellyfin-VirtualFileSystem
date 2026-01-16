@@ -4,6 +4,8 @@ using ManagedCode.Storage.Server.ChunkUpload;
 using ManagedCode.Storage.Server.Controllers;
 using ManagedCode.Storage.VirtualFileSystem.Core;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Jellyfin.Plugin.FS.Controller
 {
@@ -11,6 +13,7 @@ namespace Jellyfin.Plugin.FS.Controller
     [Route("fs/api/storage")]
     public class FSController : StorageControllerBase<IStorage>
     {
+        private ILogger<FSController> _logger;
         /// <summary>
         /// Initialises a new instance of the default storage controller.
         /// </summary>
@@ -20,8 +23,21 @@ namespace Jellyfin.Plugin.FS.Controller
         public FSController(
             IStorage storage,
             ChunkUploadService chunkUploadService,
-            StorageServerOptions options) : base(storage, chunkUploadService, options)
+            StorageServerOptions options, ILogger<FSController> logger) : base(storage, chunkUploadService, options)
         {
+            _logger = logger;
+        }
+        [Route("init")]
+        public IActionResult Init()
+        {
+            _logger.LogInformation("FSController Init()");
+            return Ok();
+        }
+        [Route("paths")]
+        public IActionResult Paths([FromBody] Dictionary<string, string> dic)
+        {
+            _logger.LogInformation(JsonConvert.SerializeObject(dic));
+            return Ok();
         }
     }
 }

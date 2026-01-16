@@ -7,7 +7,7 @@ using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Playlists;
 using MediaBrowser.Model.Tasks;
 using Microsoft.Extensions.Logging;
-
+using Newtonsoft.Json.Linq;
 namespace Jellyfin.Plugin.FS.Services
 {
     public class StartupService : IScheduledTask
@@ -31,10 +31,10 @@ namespace Jellyfin.Plugin.FS.Services
         {
             _logger.LogInformation($"FSSystem Startup. Registering file transformations.");
 
-            List<JsonNode> payloads = [];
+            List<JObject> payloads = new List<JObject>();
 
             {
-                JsonNode payload = new JsonObject
+                JObject  payload = new JObject
                 {
                     { "id", "dcaafb64-88de-4efa-b77b-ae0616291cbb" },
                     { "fileNamePattern", "index.html" },
@@ -46,7 +46,7 @@ namespace Jellyfin.Plugin.FS.Services
                 payloads.Add(payload);
             }
             {
-                JsonNode payload = new JsonObject
+                JObject  payload = new JObject
                 {
                     { "id", "403e6374-7433-4137-b24f-2be01a14a90f" },
                     { "fileNamePattern", "home-html\\..*\\.chunk\\.js" },
@@ -68,7 +68,7 @@ namespace Jellyfin.Plugin.FS.Services
 
                 if (pluginInterfaceType != null)
                 {
-                    foreach (JsonNode payload in payloads)
+                    foreach (JObject payload in payloads)
                     {
                         pluginInterfaceType.GetMethod("RegisterTransformation")?.Invoke(null, [payload]);
                     }
