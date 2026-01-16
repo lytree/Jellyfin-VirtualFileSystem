@@ -1,4 +1,4 @@
-﻿using ManagedCode.Storage.Core;
+using ManagedCode.Storage.Core;
 using ManagedCode.Storage.VirtualFileSystem.Options;
 using MediaBrowser.Model.Plugins;
 
@@ -13,7 +13,7 @@ namespace Jellyfin.Plugin.FS.Configuration
     {
         public string LinkPath { get; set; } = string.Empty;
         public string BaseFolder { get; set; } = string.Empty;
-        public Dictionary<string, string> Options { get; set; } = new();
+        //public Dictionary<string, string> Options { get; set; } = new();
 
     }
 }

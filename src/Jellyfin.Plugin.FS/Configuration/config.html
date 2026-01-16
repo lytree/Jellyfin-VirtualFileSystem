@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
@@ -96,7 +96,7 @@
                     addMapping: () => {
                         const base = document.getElementById('BaseFolder');
                         const link = document.getElementById('LinkPath');
-
+                        console.log(base, link)
                         if (base.value && link.value) {
                             VFSConfig.mappings.push({
                                 BaseFolder: base.value,
@@ -142,7 +142,7 @@
                 }
 
                 // Jellyfin 页面进入时触发
-                document.querySelector('.pluginConfigurationPage').addEventListener('pageshow', function () {
+                document.querySelector('#VFSConfigurationPage').addEventListener('pageshow', function () {
                     VFSConfig.init(this);
                 });
             }
